@@ -1,0 +1,179 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+
+
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/geo-location/geo-location.html">
+<link rel="import" href="my-icons.html">
+
+<link rel="import" href="view-2.html">
+<link rel="import" href="view-1.html">
+
+
+<dom-module id="my-app">
+    <template>
+        <style include="iron-flex iron-flex-alignment">
+
+            .default-primary-color {
+                background: #00BCD4;
+            }
+
+             :host {
+                display: block;
+                --paper-tabs-selection-bar-color: #fff;
+                --paper-tab-ink: #fff;
+                color: #757575;
+                --paper-tab {
+                    width: 50%;
+                }
+            }
+
+            .drawer-list {
+                margin: 0 20px;
+            }
+
+            .drawer-list a {
+                display: block;
+                padding: 0 16px;
+                text-decoration: none;
+                color: #757575;
+                line-height: 40px;
+            }
+
+            .drawer-list a.iron-selected {
+                color: #757575;
+                font-weight: 500;
+            }
+
+            p {
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            img {}
+
+            a {
+                text-decoration: none;
+                color: #009688;
+            }
+
+            .sidebar {
+
+                text-align: center;
+            }
+
+            .contact{
+              margin-top: 15%;
+            }
+            .foot{
+              margin-top: 55%;
+            }
+            .github{
+              margin: 15% auto;
+            }
+            paper-toolbar{
+              background-image: url("../images/bg.png");
+              background-size: cover;
+
+            }
+            .title{
+              color: #009688;
+            }
+          </style>
+
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+
+        <paper-drawer-panel>
+            <paper-header-panel mode="seamed" drawer>
+                <paper-toolbar class="tall"><span class="title">Blue Sky</span></paper-toolbar>
+                <div class="sidebar">
+                    <div class="github">
+                        <iframe src="https://ghbtns.com/github-btn.html?user=himanshuchauhan&repo=blue&type=star&count=true&size=large" frameborder="0" scrolling="0" width="115px" height="30px"></iframe>
+                    </div>
+
+                  <div class="contact">
+                    <p>follow me on</p>
+                    <a href="https://twitter.com/himanshuholik">Twitter</a><br>
+                    <a href="https://github.com/himanshuchauhan">Github</a>
+                  </div>
+
+
+                    <div class="foot">
+                        <img src="../images/manifest/icon-48x48.png" alt="Polymer"/>
+                        <div>
+                            <p> Made with <a href="https://www.polymer-project.org/1.0/">Polymer</a>
+
+                            </p>
+                            <p>Forecast data from <a href="https://darksky.net/dev/">DarkSky API</a></p>
+                        </div>
+                    </div>
+                </div>
+
+            </paper-header-panel>
+            <paper-header-panel mode="waterfall-tall" tall-class="medium-tall" main>
+                <paper-toolbar class="default-primary-color" middleJustify="around">
+                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                    <div main-title class="flex right">Blue Sky</div>
+                    <paper-tabs class=" default-primary-color text-primary-color bottom fit" selected="{{page}}" attr-for-selected="name">
+                        <paper-tab name="view1" href="/view1">&nbsp&nbsp&nbspPresent&nbsp&nbsp&nbsp</paper-tab>
+                        <paper-tab name="view2" href="/view2">Time Machine</paper-tab>
+
+                    </paper-tabs>
+                </paper-toolbar>
+                <neon-animated-pages selected={{page}} attr-for-selected="name" fallback-selection="view404" role="main">
+                    <view-1 name="view1"></view-1>
+                    <view-2 name="view2"></view-2>
+
+                </neon-animated-pages>
+            </paper-header-panel>
+
+        </paper-drawer-panel>
+
+    </template>
+
+
+    <script>
+        Polymer({
+            is: 'my-app',
+
+            properties: {
+                page: {
+                    type: String,
+                    reflectToAttribute: true,
+                    // observer: '_pageChanged'
+                }
+            },
+
+            observers: [
+                '_routePageChanged(routeData.page)'
+            ],
+
+            _routePageChanged: function(page) {
+                this.page = page || 'view1';
+            },
+
+            // _pageChanged: function(page) {
+            //     // Load page import on demand. Show 404 page if fails
+            //     var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+            //     this.importHref(resolvedPageUrl, null, this._showPage404, true);
+            // },
+            //
+            _showPage404: function() {
+                this.page = 'view404';
+            }
+        });
+    </script>
+
+</dom-module>

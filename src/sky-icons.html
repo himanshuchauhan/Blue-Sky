@@ -1,0 +1,35 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<script src="../js/skycons.js" charset="utf-8"></script>
+
+<dom-module id="sky-icons">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <canvas id="sky" width="80" height="80"></canvas>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'sky-icons',
+            properties: {
+                icon: {
+                    type: String,
+                    observer: '_skycon',
+                }
+            },
+
+            _skycon: function(icon) {
+                skycons = new Skycons({'color':'#0097A7'});
+                skycons.set(this.$.sky, icon);
+                skycons.play();
+            }
+        });
+
+    </script>
+
+</dom-module>
