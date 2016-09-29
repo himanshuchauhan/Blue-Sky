@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input-container.html">
@@ -11,7 +11,7 @@
 <link rel="import" href="sky-icons.html">
 
 
-<dom-module id="view-2">
+</head><body><dom-module id="view-2">
     <template>
         <style include="iron-flex iron-flex-alignment">
             :host {
@@ -38,7 +38,7 @@
         </style>
 
         <geo-location latitude="{{lat}}" longitude="{{long}}"> </geo-location>
-        <iron-ajax id="timeRequest" auto url="[[timeUrl]]" handle-as="json" last-response="{{timeData}}" on-request=_show on-response=_hide></iron-ajax>
+        <iron-ajax id="timeRequest" auto="" url="[[timeUrl]]" handle-as="json" last-response="{{timeData}}" on-request="_show" on-response="_hide"></iron-ajax>
 
 
         <div class="layout vertical center">
@@ -55,21 +55,21 @@
                 <paper-card class="layout vertical">
 
 
-                    <div class="card-content layout  horizontal around-justified center">
+                    <div class="card-content layout horizontal around-justified center">
                         <div>
                             <div>{{timeData.daily.data.0.temperatureMax}} ℃</div>
                             <div class="label">{{timeData.daily.data.0.temperatureMin}} ℃</div>
                         </div>
                         <div class="icon">
-                            <sky-icons icon=[[timeData.daily.data.0.icon]]></sky-icons>
+                            <sky-icons icon="[[timeData.daily.data.0.icon]]"></sky-icons>
                         </div>
 
                     </div>
 
-                    <div class=" self-center hourlySummary">{{timeData.daily.data.0.summary}}</div>
+                    <div class="self-center hourlySummary">{{timeData.daily.data.0.summary}}</div>
                     <div class="card-actions horizontal layout around-justified center">
 
-                        <div class="layout vertical center ">
+                        <div class="layout vertical center">
                             {{timeData.daily.data.0.humidity}}
                             <div class="label">Humidity</div>
                         </div>
@@ -79,11 +79,11 @@
                             <div class="label">Wind</div>
                         </div>
                         <div class="layout vertical center">
-                            <moment-js date={{timeData.daily.data.0.sunriseTime}}000 format="h:mm a"></moment-js>
+                            <moment-js date="{{timeData.daily.data.0.sunriseTime}}000" format="h:mm a"></moment-js>
                             <div class="label">Sunrise</div>
                         </div>
                         <div class="layout vertical center">
-                            <moment-js date={{timeData.daily.data.0.sunsetTime}}000 format="h:mm a"></moment-js>
+                            <moment-js date="{{timeData.daily.data.0.sunsetTime}}000" format="h:mm a"></moment-js>
                             <div class="label">Sunset</div>
                         </div>
 
@@ -94,74 +94,6 @@
     </template>
 
 
-    <script>
-        Polymer({
-            is: 'view-2',
-            behaviors: [
-                Polymer.NeonAnimationRunnerBehavior
-            ],
-            properties: {
-                animationConfig: {
-                    value: function() {
-                        return {
-
-                            'entry': [{
-                                name: 'slide-from-right-animation',
-                                node: this
-
-                            }, {
-                                name: 'fade-in-animation',
-                                node: this,
-                                timing: {
-                                    delay: 50
-                                }
-                            }],
-                            'exit': [{
-                                name: 'slide-right-animation',
-                                node: this
-                            }, {
-                                name: 'fade-out-animation',
-                                node: this,
-                                timing: {
-                                    delay: 50
-                                }
-                            }]
-                        }
-                    }
-                },
-
-
-                lat: {
-                    notify: true
-                },
-
-                long: {
-                    notify: true,
-                },
-
-                date: {
-                    notify: true,
-                },
-
-                timeUrl: {
-                    computed: '_computeUrl(lat,long,date)',
-                },
-            },
-            _show: function() {
-
-                this.$.loader.setAttribute('active', null);
-            },
-            _hide: function() {
-
-                this.$.loader.removeAttribute('active');
-            },
-            _computeUrl: function(lat, long, date) {
-                return ["https://crossorigin.me/https://api.darksky.net/forecast/6690e7692126622da7286b67c3d427e9/", lat, ",", long, ",",
-                    date, "T12:00:00-0400?units=auto"
-                ].join("");
-            },
-
-
-        });
-    </script>
+    <script>Polymer({is:"view-2",behaviors:[Polymer.NeonAnimationRunnerBehavior],properties:{animationConfig:{value:function(){return{entry:[{name:"slide-from-right-animation",node:this},{name:"fade-in-animation",node:this,timing:{delay:50}}],exit:[{name:"slide-right-animation",node:this},{name:"fade-out-animation",node:this,timing:{delay:50}}]}}},lat:{notify:!0},long:{notify:!0},date:{notify:!0},timeUrl:{computed:"_computeUrl(lat,long,date)"}},_show:function(){this.$.loader.setAttribute("active",null)},_hide:function(){this.$.loader.removeAttribute("active")},_computeUrl:function(t,i,e){return["https://crossorigin.me/https://api.darksky.net/forecast/6690e7692126622da7286b67c3d427e9/",t,",",i,",",e,"T12:00:00-0400?units=auto"].join("")}});</script>
 </dom-module>
+</body></html>

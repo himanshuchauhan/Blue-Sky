@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -13,7 +13,7 @@
 
 
 
-<dom-module id="view-1" >
+</head><body><dom-module id="view-1">
     <template>
         <style include="iron-flex iron-flex-alignment">
              :host {
@@ -66,15 +66,15 @@
         <geo-location latitude="{{lat}}" longitude="{{long}}"> </geo-location>
 
 
-        <iron-ajax id="forecast" auto url="{{forecastUrl}}" handle-as="json" last-response="{{response}}" on-response="_hide"></iron-ajax>
+        <iron-ajax id="forecast" auto="" url="{{forecastUrl}}" handle-as="json" last-response="{{response}}" on-response="_hide"></iron-ajax>
 
 
-        <iron-ajax id="google" auto url="{{cityUrl}}" handle-as="json" last-response="{{location}}"></iron-ajax>
+        <iron-ajax id="google" auto="" url="{{cityUrl}}" handle-as="json" last-response="{{location}}"></iron-ajax>
 
 
 
         <div class="mid">
-            <paper-spinner id="loader" class="block" active></paper-spinner>
+            <paper-spinner id="loader" class="block" active=""></paper-spinner>
         </div>
 
 
@@ -83,7 +83,7 @@
             <div class="layout vertical center">
                 <paper-card class="layout vertical">
 
-                    <moment-js class="time" date=[[response.currently.time]]000 format="h:mm a"></moment-js>
+                    <moment-js class="time" date="[[response.currently.time]]000" format="h:mm a"></moment-js>
                     <div class="card-content layout horizontal around-justified center">
                         <div>
                             <h2>[[location.results.0.address_components.3.short_name]]</h2>
@@ -95,14 +95,14 @@
                             </div>
                         </div>
                         <div class="icon">
-                            <sky-icons icon=[[response.currently.icon]]></sky-icons>
+                            <sky-icons icon="[[response.currently.icon]]"></sky-icons>
                         </div>
                     </div>
 
                     <div class="self-center summary hourlySummary">{{response.hourly.summary}}</div>
 
                     <div class="card-actions layout horizontal around-justified center">
-                        <div class="layout vertical center ">
+                        <div class="layout vertical center">
                             {{response.currently.humidity}}
                             <div class="label">Humidity</div>
                         </div>
@@ -122,14 +122,14 @@
 
                 <template is="dom-repeat" items="{{response.hourly.data}}" id="hourly">
 
-                    <paper-card class="layout vertical center ">
+                    <paper-card class="layout vertical center">
                         <div class="card-content">
-                            <sky-icons icon=[[item.icon]]></sky-icons>
+                            <sky-icons icon="[[item.icon]]"></sky-icons>
 
                         </div>
                         <div class="temp">{{item.temperature}}℃</div>
                         <div class="card-actions">
-                            <moment-js class="time" date=[[item.time]]000 format="hh A"></moment-js>
+                            <moment-js class="time" date="[[item.time]]000" format="hh A"></moment-js>
                         </div>
                     </paper-card>
 
@@ -143,13 +143,13 @@
                     <paper-card class="daily-card layout vertical">
                         <div class="card-content layout horizontal around-justified center">
                             <div>
-                                <h3>  <moment-js date=[[item.time]]000 format="dddd"></moment-js>
+                                <h3>  <moment-js date="[[item.time]]000" format="dddd"></moment-js>
                             </h3>
                                 <div>{{item.temperatureMax}}℃</div>
                                 <div class="label">{{item.temperatureMin}} ℃</div>
                             </div>
                             <div>
-                                <sky-icons icon=[[item.icon]]></sky-icons>
+                                <sky-icons icon="[[item.icon]]"></sky-icons>
                             </div>
                         </div>
                         <div class="self-center summary">{{item.summary}}</div>
@@ -163,16 +163,16 @@
                                 <div class="label">Rain</div>
                             </div>
                             <div class="layout vertical center">
-                                <moment-js date=[[item.sunriseTime]]000 format="h:mm a"></moment-js>
+                                <moment-js date="[[item.sunriseTime]]000" format="h:mm a"></moment-js>
                                 <div class="label">Sunrise</div>
                             </div>
                             <div class="layout vertical center">
-                                <moment-js date=[[item.sunsetTime]]000 format="h:mm a"></moment-js>
+                                <moment-js date="[[item.sunsetTime]]000" format="h:mm a"></moment-js>
                                 <div class="label">Sunset</div>
                             </div>
                         </div>
                     </paper-card>
-            </div>
+            
             </template>
             </div>
         </template>
@@ -181,80 +181,9 @@
 
     </template>
 
-    <script>
-        Polymer({
-            is: 'view-1',
-            behaviors: [
-                Polymer.NeonAnimationRunnerBehavior
-            ],
-
-            properties: {
-
-                animationConfig: {
-                    value: function() {
-                        return {
-
-                            'entry': [{
-                                name: 'slide-from-left-animation',
-                                node: this,
-
-                            }, {
-                                name: 'fade-in-animation',
-                                node: this,
-                                timing: {
-                                    delay: 50
-                                }
-                            }],
-                            'exit': [{
-                                name: 'slide-left-animation',
-                                node: this,
-
-                            }, {
-                                name: 'fade-out-animation',
-                                node: this,
-                                timing: {
-                                    delay: 50
-                                }
-                            }]
-                        }
-                    }
-                },
-
-                lat: {
-
-                    notify: true
-                },
-                long: {
-
-                    notify: true,
-                },
-
-                forecastUrl: {
-                    computed: '_forecastUrl(lat,long)',
-                },
-                cityUrl: {
-                    computed: '_locationUrl(lat,long)'
-                },
-            },
-            _hide: function() {
-                this.$.loader.removeAttribute('active');
-
-            },
-            _forecastUrl: function(lat, long) {
-
-                return ["https://crossorigin.me/https://api.darksky.net/forecast/6690e7692126622da7286b67c3d427e9/", lat, ",", long, "?units=auto"].join("");
-
-
-
-            },
-            _locationUrl: function(lat, long) {
-
-                return ["https://maps.googleapis.com/maps/api/geocode/json?latlng=", lat, ",", long, "&key=AIzaSyDcLZY2fQ8WEg3k-E5gmFA8Teh81cf4GBo#results/7/formatted_address"].join("");
-            },
-
-        });
-    </script>
+    <script>Polymer({is:"view-1",behaviors:[Polymer.NeonAnimationRunnerBehavior],properties:{animationConfig:{value:function(){return{entry:[{name:"slide-from-left-animation",node:this},{name:"fade-in-animation",node:this,timing:{delay:50}}],exit:[{name:"slide-left-animation",node:this},{name:"fade-out-animation",node:this,timing:{delay:50}}]}}},lat:{notify:!0},long:{notify:!0},forecastUrl:{computed:"_forecastUrl(lat,long)"},cityUrl:{computed:"_locationUrl(lat,long)"}},_hide:function(){this.$.loader.removeAttribute("active")},_forecastUrl:function(t,e){return["https://crossorigin.me/https://api.darksky.net/forecast/6690e7692126622da7286b67c3d427e9/",t,",",e,"?units=auto"].join("")},_locationUrl:function(t,e){return["https://maps.googleapis.com/maps/api/geocode/json?latlng=",t,",",e,"&key=AIzaSyDcLZY2fQ8WEg3k-E5gmFA8Teh81cf4GBo#results/7/formatted_address"].join("")}});</script>
 
 
 
 </dom-module>
+</body></html>

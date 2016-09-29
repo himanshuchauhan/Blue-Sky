@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 
@@ -20,7 +20,7 @@
 <link rel="import" href="view-1.html">
 
 
-<dom-module id="my-app">
+</head><body><dom-module id="my-app">
     <template>
         <style include="iron-flex iron-flex-alignment">
 
@@ -96,11 +96,11 @@
 
 
         <paper-drawer-panel>
-            <paper-header-panel mode="seamed" drawer>
+            <paper-header-panel mode="seamed" drawer="">
                 <paper-toolbar class="tall"><span class="title">Blue Sky</span></paper-toolbar>
                 <div class="sidebar">
                     <div class="github">
-                        <iframe src="https://ghbtns.com/github-btn.html?user=himanshuchauhan&repo=blue&type=star&count=true&size=large" frameborder="0" scrolling="0" width="115px" height="30px"></iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=himanshuchauhan&amp;repo=blue&amp;type=star&amp;count=true&amp;size=large" frameborder="0" scrolling="0" width="115px" height="30px"></iframe>
                     </div>
 
                   <div class="contact">
@@ -111,7 +111,7 @@
 
 
                     <div class="foot">
-                        <img src="../images/manifest/icon-48x48.png" alt="Polymer"/>
+                        <img src="../images/manifest/icon-48x48.png" alt="Polymer">
                         <div>
                             <p> Made with <a href="https://www.polymer-project.org/1.0/">Polymer</a>
 
@@ -122,17 +122,17 @@
                 </div>
 
             </paper-header-panel>
-            <paper-header-panel mode="waterfall-tall" tall-class="medium-tall" main>
-                <paper-toolbar class="default-primary-color" middleJustify="around">
-                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-                    <div main-title class="flex right">Blue Sky</div>
-                    <paper-tabs class=" default-primary-color text-primary-color bottom fit" selected="{{page}}" attr-for-selected="name">
-                        <paper-tab name="view1" href="/view1">&nbsp&nbsp&nbspPresent&nbsp&nbsp&nbsp</paper-tab>
+            <paper-header-panel mode="waterfall-tall" tall-class="medium-tall" main="">
+                <paper-toolbar class="default-primary-color" middlejustify="around">
+                    <paper-icon-button icon="menu" paper-drawer-toggle=""></paper-icon-button>
+                    <div main-title="" class="flex right">Blue Sky</div>
+                    <paper-tabs class="default-primary-color text-primary-color bottom fit" selected="{{page}}" attr-for-selected="name">
+                        <paper-tab name="view1" href="/view1">&nbsp;&nbsp;&nbsp;Present&nbsp;&nbsp;&nbsp;</paper-tab>
                         <paper-tab name="view2" href="/view2">Time Machine</paper-tab>
 
                     </paper-tabs>
                 </paper-toolbar>
-                <neon-animated-pages selected={{page}} attr-for-selected="name" fallback-selection="view404" role="main">
+                <neon-animated-pages selected="{{page}}" attr-for-selected="name" fallback-selection="view404" role="main">
                     <view-1 name="view1"></view-1>
                     <view-2 name="view2"></view-2>
 
@@ -144,36 +144,7 @@
     </template>
 
 
-    <script>
-        Polymer({
-            is: 'my-app',
-
-            properties: {
-                page: {
-                    type: String,
-                    reflectToAttribute: true,
-                    // observer: '_pageChanged'
-                }
-            },
-
-            observers: [
-                '_routePageChanged(routeData.page)'
-            ],
-
-            _routePageChanged: function(page) {
-                this.page = page || 'view1';
-            },
-
-            // _pageChanged: function(page) {
-            //     // Load page import on demand. Show 404 page if fails
-            //     var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-            //     this.importHref(resolvedPageUrl, null, this._showPage404, true);
-            // },
-            //
-            _showPage404: function() {
-                this.page = 'view404';
-            }
-        });
-    </script>
+    <script>Polymer({is:"my-app",properties:{page:{type:String,reflectToAttribute:!0}},observers:["_routePageChanged(routeData.page)"],_routePageChanged:function(e){this.page=e||"view1"},_showPage404:function(){this.page="view404"}});</script>
 
 </dom-module>
+</body></html>
