@@ -1,0 +1,13 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="./moment-import.html">
+
+
+
+</head><body><dom-module id="moment-js">
+  <template>
+    <span hidden$="[[hide]]">[[output]]</span>
+  </template>
+
+  <script>Polymer({is:"moment-js",properties:{date:{type:String,value:Date},dateFormat:{type:String,value:null},format:{type:String,value:moment.defaultFormat},formattedDate:{type:String,readOnly:!0,notify:!0},formattedDateMoment:{type:String,readOnly:!0,notify:!0},utc:{type:Boolean,value:!1},hide:{type:Boolean,value:!1},isValid:{type:Boolean,value:!1,computed:"_computeValidity(date, dateFormat)"},startOf:{type:String,observer:"_startOfChanged"},endOf:{type:String,observer:"_endOfChanged"},relativeTime:{type:String,readOnly:!0,notify:!0},fromNow:{type:Boolean,observer:"_fromNowChanged"},toNow:{type:Boolean,observer:"_toNowChanged"},output:{type:String,readOnly:!0,notify:!0}},observers:["_checkAndSetIfDateIsNumber(date)","_updateFormattedDateMoment(date, dateFormat, utc)","_updateFormattedDate(format)"],_checkAndSetIfDateIsNumber:function(t){isNaN(t)||this.set("date",Number(this.date))},_updateFormattedDateMoment:function(){this.dateFormat?this.utc?this._setFormattedDateMoment(moment.utc(this.date,this.dateFormat)):this._setFormattedDateMoment(moment(this.date,this.dateFormat)):this.utc?this._setFormattedDateMoment(moment.utc(this.date)):this._setFormattedDateMoment(moment(this.date)),this._updateFormattedDate()},_updateFormattedDate:function(){this.formattedDateMoment&&(this._setFormattedDate(this.formattedDateMoment.format(this.format)),this._setOutput(this.formattedDate))},_computeValidity:function(){return this.dateFormat?moment(this.date,this.dateFormat).isValid():moment(this.date).isValid()},_startOfChanged:function(){this._setFormattedDateMoment(this.formattedDateMoment.startOf(this.startOf)),this._updateFormattedDate()},_endOfChanged:function(){this._setFormattedDateMoment(this.formattedDateMoment.endOf(this.endOf)),this._updateFormattedDate()},_fromNowChanged:function(){this.fromNow&&(this._setRelativeTime(this.formattedDateMoment.fromNow()),this._setOutput(this.relativeTime))},_toNowChanged:function(){this.toNow&&(this._setRelativeTime(this.formattedDateMoment.toNow()),this._setOutput(this.relativeTime))}});</script>
+</dom-module>
+</body></html>
