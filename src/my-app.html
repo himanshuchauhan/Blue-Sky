@@ -161,13 +161,13 @@
                         reflectToAttribute: !0
                     }
                 },
-                // observers: ["_routePageChanged(routeData.page)"],
-                // _routePageChanged: function(e) {
-                //     this.page = e || "view1"
-                // },
-                // _showPage404: function() {
-                //     this.page = "view1"
-                // }
+                observers: ["_routePageChanged(routeData.page)"],
+                _routePageChanged: function(e) {
+                    this.page = e || "view1"
+                },
+                _showPage404: function() {
+                    this.page = "view1"
+                }
             });
         </script>
 
